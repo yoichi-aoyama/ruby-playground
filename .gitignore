@@ -1,0 +1,12 @@
+/.bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/db/*.sqlite3-*
+/storage/*
+/node_modules
+/.idea
+.DS_Store
+
+/log/.keep
+/tmp/.keep

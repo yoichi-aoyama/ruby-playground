@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+
+name = ARGV[0]
+
+abort "usage: ./bin/new_rails_sample category/name" if name.nil? || name.empty?
+
+destination = File.join(__dir__, "..", "examples", "rails", "#{name}.md")
+template = File.join(__dir__, "..", "templates", "rails_sample.md")
+
+if File.exist?(destination)
+  abort "already exists: #{destination}"
+end
+
+FileUtils.mkdir_p(File.dirname(destination))
+title = File.basename(name).split("_").map(&:capitalize).join(" ")
+content = File.read(template).gsub("Sample Title", title)
+File.write(destination, content)
+
+puts "created #{destination}"

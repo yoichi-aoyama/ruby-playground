@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+
+name = ARGV[0]
+
+abort "usage: ./bin/new_ruby_sample category/name" if name.nil? || name.empty?
+
+destination = File.join(__dir__, "..", "examples", "ruby", "#{name}.rb")
+template = File.join(__dir__, "..", "templates", "ruby_sample.rb")
+
+if File.exist?(destination)
+  abort "already exists: #{destination}"
+end
+
+FileUtils.mkdir_p(File.dirname(destination))
+content = File.read(template).gsub("SampleName", File.basename(name).split("_").map(&:capitalize).join)
+File.write(destination, content)
+
+puts "created #{destination}"
